@@ -1,0 +1,78 @@
+Modüllerin Planlanması
+
+Modüler yapıda aşağıdaki modüller oluşturulabilir:
+
+Kullanıcı Yönetimi: Admin, Hotel Manager, Guest rolleri için ayrı yetkiler.
+Rezervasyon Yönetimi: Otel odalarının rezervasyon süreci.
+Oda Yönetimi: Odaların türleri, fiyatlandırma ve uygunluk takibi.
+Dil Yönetimi: Çoklu dil desteği için bir dil yönetim modülü.
+Ödeme Entegrasyonu: Stripe, PayPal gibi ödeme yöntemleri.
+Raporlama ve İstatistikler: Admin panelinde görüntülenebilecek raporlar.
+
+Sistemin Temellerinin Oluşturulması
+
+Config ve Middleware: Multi-theme ve multi-lingual yapılandırmalar.
+
+Database Yapılandırması: Çoklu dil ve çoklu tema desteği için uygun bir veri modeli.
+
+RBAC ve Yetkilendirme: Spatie RBAC ile role-based erişim kontrolü.
+
+5. Modül Geliştirme Süreci
+
+Modüller sırasıyla oluşturulacak:
+
+İlk olarak Core modülü (kök işlevler).
+
+Ardından kullanıcı rolleri, tema yönetimi, dil ayarları gibi sistem modülleri.
+
+Rezervasyon ve oda yönetimi gibi temel işlev modülleri.
+
+Hangi aşamadan başlamak istediğinizi veya öncelikli modülünüzü belirtirseniz, ona göre detaylandırabiliriz.
+
+
+
+Multi-Theme Desteği: Themosis/Framework
+Themosis Framework, temalar arasında geçişi kolaylaştırır ve Blade şablonlarını daha modüler hale getirir.
+
+Kurulum:
+Paket Yükleme:
+
+bash
+Kodu kopyala
+composer require themosis/framework
+Temalar için Yapılandırma: config/themes.php dosyasını oluşturun:
+
+php
+Kodu kopyala
+return [
+    'frontend' => [
+        'path' => resource_path('themes/frontend'),
+        'namespace' => 'Themes\\Frontend',
+    ],
+    'admin' => [
+        'path' => resource_path('themes/admin'),
+        'namespace' => 'Themes\\Admin',
+    ],
+];
+Blade Şablonlarını Düzenleme: Temaları şablon klasörüne yerleştirin. Örnek dizin:
+
+bash
+Kodu kopyala
+resources/themes/frontend
+resources/themes/admin
+Tema Yönlendirmesi: Dinamik olarak tema seçimi yapabilirsiniz:
+
+php
+Kodu kopyala
+view()->addNamespace('frontend', resource_path('themes/frontend'));
+view()->addNamespace('admin', resource_path('themes/admin'));
+4. Dinamik Veritabanı Yönetimi
+Tüm sistem, veritabanından yönetilebilir olacak şekilde yapılandırılabilir:
+
+Diller ve Çeviriler: Spatie ile veritabanından.
+Temalar: Themosis ile dinamik tema seçimi.
+Modüller: Nwidart ile bağımsız olarak etkin/pasif hale getirilebilir.
+Sonraki Adımlar
+Yukarıdaki yapıların kurulumu tamamlandıktan sonra, modülleri (ör. Kullanıcı Yönetimi, Rezervasyon Yönetimi) geliştirmeye başlayabiliriz.
+Sistem dinamikleştirilirken, admin panelinden dil ekleme, tema değiştirme gibi özellikler ekleyebiliriz.
+Eğer bu plan doğrultusunda ilerlemek istiyorsanız, ilk adımla başlayabiliriz!
